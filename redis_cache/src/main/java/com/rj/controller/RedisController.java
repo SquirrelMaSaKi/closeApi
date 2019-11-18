@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/cache")
@@ -41,6 +42,11 @@ public class RedisController {
         checkKey(key);
         redisService.hset(key, field, value);
         return "ok";
+    }
+
+    @RequestMapping("/smember/{key}")
+    public Set<String> sMember(@PathVariable("key") String key) {
+        return redisService.sMembers(key);
     }
 
     public void checkKey(String key) {

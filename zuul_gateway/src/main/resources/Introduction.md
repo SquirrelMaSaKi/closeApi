@@ -8,3 +8,20 @@
 //去银行大厅, 问大堂经理(网关)一下我要办xxxx业务去哪
 //规则, 定义一个标识,这个标识对应着 xxx服务的xxx方法,以后我们传递这个标识到网关
 //网关根据标识列表 来看看这个标识到底对应着谁
+
+
+# 参数校验50
+> 校验参数传入是否完全SysParamFilter
+
+# 签名校验75
+> 校验签名是否正确，一般这里是进行的加密校验
+
+# 基本流程100
+> 设置一个访问规则，比如 method=com.rj.test01
+> 在redis缓存中，设置大key为【Apiname:com.rj.test01】为存储，里面存有两个map，一个是serviceId，就是我们的test01测试服务的名称
+> 另一个是url，也就是请求地址
+> 在地址栏，我们只需要按照规则传入【method=com.rj.test01&name=Jack】
+> 拼接后就是【Apiname:com.rj.test01】,通过redis缓存获取到对应的serviceId和url，这里使用的是feign，回到cache方法
+> 这里需要拼接，按照test01服务中的要求进行拼接，形成带有值的url
+> 将serviceId和url通过【RequestContext.getCurrentContext().put】方法放入到一个map，这是会自动寻找到对应服务下的对应路径，并执行对应方法
+
