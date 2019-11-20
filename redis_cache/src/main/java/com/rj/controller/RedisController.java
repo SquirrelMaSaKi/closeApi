@@ -46,7 +46,21 @@ public class RedisController {
 
     @RequestMapping("/smember/{key}")
     public Set<String> sMember(@PathVariable("key") String key) {
+        checkKey(key);
         return redisService.sMembers(key);
+    }
+
+    @RequestMapping("/zmember/{key}/{value}")
+    public boolean zMember(@PathVariable("key") String key, @PathVariable("value") String value) {
+        checkKey(key);
+        return redisService.isZmember(key, value);
+    }
+
+    @RequestMapping("/zsave")
+    public String zSave(String key, String value, double score) {
+        checkKey(key);
+        redisService.addToZset(key, value, score);
+        return "ok";
     }
 
     public void checkKey(String key) {

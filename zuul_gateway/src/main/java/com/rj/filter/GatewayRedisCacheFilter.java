@@ -51,7 +51,6 @@ public class GatewayRedisCacheFilter extends ZuulFilter {
         HttpServletRequest request = context.getRequest();
         String method = request.getParameter("method");
 
-
         Map<Object, Object> map = myFeign.hget(MyConstant.APIPRIFIX + method);
 
         //如果传递的method是错误的,没有找到对应的服务,应该要拦截请求,我们在缓存中会存储两个东西，一个是serviceId，一个是url

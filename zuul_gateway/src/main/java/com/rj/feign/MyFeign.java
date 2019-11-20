@@ -26,4 +26,10 @@ public interface MyFeign {
 
     @RequestMapping("/cache/smember/{key}")
     Set<String> sMember(@PathVariable("key") String key);
+
+    @RequestMapping("/cache/zmember/{key}/{value}")
+    boolean isZmember(@PathVariable("key") String key, @PathVariable("value") String value);
+
+    @RequestMapping("/cache/zsave")
+    String zSave(@RequestParam("key") String key, @RequestParam("value") String value, @RequestParam("score") double score);
 }

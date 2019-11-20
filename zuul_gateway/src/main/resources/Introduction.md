@@ -1,4 +1,4 @@
-#动态路由
+# 动态路由
 > 不需要每次手动更改我们的源代码,可以动态的获取到服务列表,然后动态调用的方式
 > 比如，如果不使用动态路由，我们虽然可以通过http://localhost:11000/actuator/routes
 > 获取到所有的服务名称,但是我们不知道具体的方法路径，还需要去拼接
@@ -13,8 +13,13 @@
 # 参数校验50
 > 校验参数传入是否完全SysParamFilter
 
+# 时间超时判断60
+> 判断是否超时TimeStampFilter
+
 # 签名校验75
-> 校验签名是否正确，一般这里是进行的加密校验
+> 校验签名是否正确，一般这里是进行的加密校验SignFilter
+> 前端会根据method/appkey/timestamp/salt等参数计算出一个sign,并作为地址栏参数一并传给后端；
+> 同样，后端也会根据method/appkey/timestamp/salt等参数计算出一个sign，然后进行比较，这就是身份校验
 
 # 基本流程100
 > 设置一个访问规则，比如 method=com.rj.test01
@@ -24,4 +29,6 @@
 > 拼接后就是【Apiname:com.rj.test01】,通过redis缓存获取到对应的serviceId和url，这里使用的是feign，回到cache方法
 > 这里需要拼接，按照test01服务中的要求进行拼接，形成带有值的url
 > 将serviceId和url通过【RequestContext.getCurrentContext().put】方法放入到一个map，这是会自动寻找到对应服务下的对应路径，并执行对应方法
+
+
 
