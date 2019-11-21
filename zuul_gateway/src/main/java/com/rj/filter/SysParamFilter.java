@@ -44,7 +44,9 @@ public class SysParamFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext context = RequestContext.getCurrentContext();
         //虽然members是由我们开发人员或者是运维人员添加到redis中,并且不依赖于用户传递的参数,所以理论上这个集合一定有值,但是为了安全性,还是判断一下
+
         Set<String> members = myFeign.sMember(MyConstant.PARAMSPRIFIX + "publicparam");
+
         //我们在redis中放入了method和appkey，所以在地址栏中这两个参数必须都有，否则校验不通过
         if(members!=null&&members.size()>0) {
             for (String member : members) {
