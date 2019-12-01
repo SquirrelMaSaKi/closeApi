@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         //先获取用户传过来的token,此处使用请求头获取
         RequestContext context = RequestContext.getCurrentContext();
-        context.put(MyConstant.RECEIVE_TIME, receiveTime);//保存请求时间
+        context.put(MyConstant.RECEIVE_TIME, receiveTime);//保存请求时间，用于mq消息发送，es保存日志
         String token = request.getHeader(jwtConfig.getAuthHeader());//通过请求头获取到token
 
         //打印2

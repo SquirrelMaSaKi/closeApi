@@ -10,6 +10,7 @@
         <module>zuul_test01</module>
         <module>zuul-test02</module>
         <module>authcenter_jwt</module>
+        <module>elasticsearch_mq_log</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

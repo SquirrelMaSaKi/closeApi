@@ -56,6 +56,7 @@ public class JwtUsernamePasswordAuthenticationFilter extends AbstractAuthenticat
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         //我们规定，帐号和密码通过post请求中的请求正文传递的，一个json字符串\
         //通过二进制的流获取JSON，然后转为对象
+        //User user = JSON.parseObject(request.getInputStream(), User.class);
         User user = objectMapper.readValue(request.getInputStream(), User.class);//类似于@ResponseBody，只不过这个过程是springMVC处理的
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());//将用户帐号密码读取
         return getAuthenticationManager().authenticate(token);//然后进行【比对】
