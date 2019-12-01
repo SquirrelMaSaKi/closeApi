@@ -14,11 +14,8 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
-import static com.netflix.zuul.context.RequestContext.getCurrentContext;
 
 public class PostFilter extends ZuulFilter {
     @Autowired
@@ -39,7 +36,7 @@ public class PostFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return getCurrentContext().sendZuulResponse();
+        return RequestContext.getCurrentContext().sendZuulResponse();
     }
 
     /**
